@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_sign_up__customer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/background_login"
+    tools:context="com.sai.customerapp.SignUpActivity_Customer">
+
+    <ImageView
+        android:id="@+id/eastCoCustomerTitle"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:scaleX="0.6"
+        android:scaleY="0.6"
+        android:src="@drawable/login_white" />
+
+    <TextView
+        android:id="@+id/eastCoCustomer_Username_Label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:layout_alignLeft="@id/eastCoCustomer_Username_Input"
+        android:layout_below="@id/eastCoCustomerTitle"
+        android:text="Username" />
+
+    <EditText
+        android:id="@+id/eastCoCustomer_Username_Input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:background="@drawable/rectangle_border"
+        android:fontFamily="sans-serif"
+        android:padding="5dp"
+        android:hint="Username"
+        android:layout_below="@id/eastCoCustomer_Username_Label"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/eastCoCustomer_PhoneNumber_Label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:layout_alignStart="@id/eastCoCustomer_PhoneNumber_Input"
+        android:layout_alignLeft="@id/eastCoCustomer_PhoneNumber_Input"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/eastCoCustomer_Username_Input"
+        android:text="PhoneNumber" />
+
+    <EditText
+        android:id="@+id/eastCoCustomer_PhoneNumber_Input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:background="@drawable/rectangle_border"
+        android:fontFamily="sans-serif"
+        android:padding="5dp"
+        android:hint="Phone number"
+        android:layout_below="@id/eastCoCustomer_PhoneNumber_Label"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/eastCoCustomer_Password_Label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:layout_alignStart="@id/eastCoCustomer_PhoneNumber_Input"
+        android:layout_alignLeft="@id/eastCoCustomer_PhoneNumber_Input"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/eastCoCustomer_PhoneNumber_Input"
+        android:text="PhoneNumber" />
+
+    <EditText
+        android:id="@+id/eastCoCustomer_Password_Input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:background="@drawable/rectangle_border"
+        android:fontFamily="sans-serif"
+        android:padding="5dp"
+        android:hint="Password"
+        android:layout_marginTop="30dp"
+        android:layout_below="@id/eastCoCustomer_PhoneNumber_Input"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eastCoCustomer_Register_Button"
+        android:paddingLeft="70dp"
+        android:paddingRight="70dp"
+        android:background="@drawable/rectangle_transparent"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        android:lineSpacingExtra="8sp"
+        android:minHeight="29dp"
+        android:layout_below="@+id/eastCoCustomer_Password_Input"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="44dp" />
+
+</RelativeLayout>
