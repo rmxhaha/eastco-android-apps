@@ -1,5 +1,6 @@
 package com.sai.customerapp;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
@@ -10,8 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.sai.customerapp.Fragments.FragmentHistory;
-import com.sai.customerapp.Fragments.FragmentOrder;
 import com.sai.customerapp.Fragments.FragmentShop;
 
 public class MainActivity extends AppCompatActivity {
@@ -60,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
                         ft.commit();
 
                         return true;
+                    /*
                     case R.id.action_order:
                         FragmentOrder fragmentOrder = new FragmentOrder();
                         myTitle.setText("ORDER");
@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
                         ft.replace(R.id.Frame_Container, fragmentHistory);
                         ft.commit();
                         return true;
+                    */
                 }
 
                 return false;
@@ -88,6 +89,17 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+
+    public void switchContent(Fragment newFragment) {
+
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+
+        ft.replace(R.id.Frame_Container, newFragment);
+        ft.commit();
+
     }
 
 }
