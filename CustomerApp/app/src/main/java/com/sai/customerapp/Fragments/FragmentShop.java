@@ -35,7 +35,7 @@ public class FragmentShop extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
 
         // menambahkan layout
-        v = inflater.inflate(R.layout.fragment_recyclerView, container, false);
+        v = inflater.inflate(R.layout.fragment_recycler_view, container, false);
 
         recyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);

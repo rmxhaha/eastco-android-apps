@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imageViewMenuProfPic"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginBottom="15dp"
+        android:src="@drawable/ic_accepted" />
+
+    <TextView
+        android:id="@+id/textViewMenuName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Menu's Name"
+        android:textStyle="bold"
+        android:textSize="16dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginBottom="15dp"
+        android:layout_toRightOf="@id/imageViewMenuProfPic" />
+
+    <TextView
+        android:id="@+id/textViewMenuDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Menu's Description"
+        android:textSize="12dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginBottom="12dp"
+        android:layout_below="@id/textViewMenuName"
+        android:layout_toRightOf="@id/imageViewMenuProfPic"/>
+
+        <Button
+            android:id="@+id/buttonMenuBuy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BUY"
+            android:layout_marginLeft="30dp"
+            android:layout_below="@id/textViewMenuDescription"
+            android:layout_toRightOf="@id/imageViewMenuProfPic" />
+
+
+        <TextView
+            android:id="@+id/textViewMenuPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Menu's Price"
+            android:textSize="18dp"
+            android:layout_alignParentRight="true"
+            android:gravity="right"
+            android:layout_marginBottom="12dp"
+            android:layout_below="@id/textViewMenuDescription"
+            android:layout_toRightOf="@id/buttonMenuBuy"/>
+
+</RelativeLayout>

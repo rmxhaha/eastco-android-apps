@@ -29,7 +29,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_shop_adapterLayout, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_shop_adapter_layout, parent, false);
 
         ViewHolder viewHolder = new ViewHolder(v);
 
