@@ -20,6 +20,7 @@
         android:scaleY="0.6"
         android:src="@drawable/login_white" />
 
+    <!--
     <TextView
         android:id="@+id/eastCoCustomer_Username_Label"
         android:layout_width="wrap_content"
@@ -28,6 +29,7 @@
         android:layout_alignLeft="@id/eastCoCustomer_Username_Input"
         android:layout_below="@id/eastCoCustomerTitle"
         android:text="Username" />
+    -->
 
     <EditText
         android:id="@+id/eastCoCustomer_Username_Input"
@@ -39,9 +41,10 @@
         android:fontFamily="sans-serif"
         android:padding="5dp"
         android:hint="Username"
-        android:layout_below="@id/eastCoCustomer_Username_Label"
+        android:layout_below="@id/eastCoCustomerTitle"
         android:layout_centerHorizontal="true" />
 
+    <!--
     <TextView
         android:id="@+id/eastCoCustomer_PhoneNumber_Label"
         android:layout_width="wrap_content"
@@ -52,6 +55,7 @@
         android:layout_marginTop="20dp"
         android:layout_below="@id/eastCoCustomer_Username_Input"
         android:text="PhoneNumber" />
+    -->
 
     <EditText
         android:id="@+id/eastCoCustomer_PhoneNumber_Input"
@@ -63,9 +67,11 @@
         android:fontFamily="sans-serif"
         android:padding="5dp"
         android:hint="Phone number"
-        android:layout_below="@id/eastCoCustomer_PhoneNumber_Label"
+        android:layout_marginTop="30dp"
+        android:layout_below="@id/eastCoCustomer_Username_Input"
         android:layout_centerHorizontal="true" />
 
+    <!--
     <TextView
         android:id="@+id/eastCoCustomer_Password_Label"
         android:layout_width="wrap_content"
@@ -76,6 +82,7 @@
         android:layout_marginTop="20dp"
         android:layout_below="@id/eastCoCustomer_PhoneNumber_Input"
         android:text="PhoneNumber" />
+    -->
 
     <EditText
         android:id="@+id/eastCoCustomer_Password_Input"
@@ -88,8 +95,8 @@
         android:padding="5dp"
         android:hint="Password"
         android:layout_marginTop="30dp"
-        android:layout_below="@id/eastCoCustomer_PhoneNumber_Input"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/eastCoCustomer_PhoneNumber_Input" />
 
     <Button
         android:text="Register"
