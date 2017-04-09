@@ -10,14 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 
+import com.sai.customerapp.Adapters.MenuAdapter;
 import com.sai.customerapp.Adapters.ShopAdapter;
+import com.sai.customerapp.FragmentClasses.MenuInfo;
 import com.sai.customerapp.FragmentClasses.TenantInfo;
 import com.sai.customerapp.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FragmentShop extends Fragment {
+public class FragmentMenu extends Fragment {
 
     View v;
     WebView myWeb;
@@ -28,7 +30,9 @@ public class FragmentShop extends Fragment {
     //adapter object
     private RecyclerView.Adapter adapter;
 
-    private List<TenantInfo> tenantInfos;
+    private List<MenuInfo> menuInfos;
+
+    private int tenantID_BUNDLE_DATA;
 
     @Nullable
     @Override
@@ -48,36 +52,43 @@ public class FragmentShop extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //you can set the title for your toolbar here for different fragments different titles
+        //getActivity().setTitle("All Reports");
+
+        // get bundle data
+        tenantID_BUNDLE_DATA = getArguments().getInt("tenantID");
+
         // retrieve report info from database
-        retrieveShopInfo();
+        retrieveMenuInfo();
     }
 
 
-    private void retrieveShopInfo() {
+    private void retrieveMenuInfo() {
 
         // [TO-DO]
-        // SEND POST REQUEST TO SERVER FOR THE LIST OF TENANT
+        // SEND POST REQUEST TO SERVER FOR THE LIST OF MENU BASED ON THE TENANT ID
 
 
         // [EXPERIMENT]
 
-        // assuming that the responses from the server are ID, PROFPIC SOURCE, TENANT'S NAME, and TENANT'S DESCRIPTION
-        int tenantID = 1;
-        String tenantProfPic = "background_login";
-        String tenantName = "Ayam-Ayaman";
-        String tenantDescription = "Spesial chicken rice";
+        // assuming that the responses are menu's ID, name, description, price, and picture
+        int menuID = 1;
+        String menuName = "Ayam Cabe-Cabean";
+        String menuDescription = "Ayam cabe paling enak. Cabe nya mantap";
+        int menuPrice = 50000;
+        String menuProfPic = "background_login";
 
-        // creating tenantInfo object (CAN BE MORE THAT ONE)
-        TenantInfo TI = new TenantInfo(tenantID, tenantProfPic, tenantName, tenantDescription);
+        // creating menuInfo object (CAN BE MORE THAT ONE)
+        MenuInfo MI = new MenuInfo(menuID, menuName, menuDescription, menuPrice, menuProfPic);
 
-        // clearing list of tenantInfo
-        tenantInfos = new ArrayList<>();
+        // clearing list of menuInfo
+        menuInfos = new ArrayList<>();
 
-        // adding tenantInfo object to the list of tenantInfo
-        tenantInfos.add(TI);
+        // adding menuInfo object to the list of menuInfo
+        menuInfos.add(MI);
 
         // creating adapter
-        adapter = new ShopAdapter(getActivity().getApplicationContext(), tenantInfos);
+        adapter = new MenuAdapter(getActivity().getApplicationContext(), menuInfos);
 
         // adding adapter to recyclerview
         recyclerView.setAdapter(adapter);
