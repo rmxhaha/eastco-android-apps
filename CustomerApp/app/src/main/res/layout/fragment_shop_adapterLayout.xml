@@ -13,10 +13,13 @@
         <ImageView
             android:id="@+id/imageViewTenantProfPic"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
+            android:scaleType="centerCrop" />
+
+            <!--
             android:src="@drawable/background_login" />
+            -->
 
         <TextView
             android:id="@+id/textViewTenantName"
@@ -26,7 +29,7 @@
             android:layout_marginBottom="60dp"
             android:layout_marginLeft="20dp"
             android:text="Tenant's Name"
-            android:textSize="30sp"
+            android:textSize="25sp"
             android:textStyle="bold" />
 
         <TextView
@@ -37,7 +40,7 @@
             android:layout_marginBottom="30dp"
             android:layout_marginLeft="20dp"
             android:text="Tenant's Description"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:textStyle="bold" />
 
     </FrameLayout>
