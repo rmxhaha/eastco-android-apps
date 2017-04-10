@@ -71,12 +71,13 @@ public class FragmentOrder extends Fragment {
         // [EXPERIMENT]
 
         // assuming that the responses from the server are menu's name, address, and total price
-        String historyMenuName = "Ayam Cabe-Cabean";
-        String historyAddress = "Labtek V";
-        int historyTotalPrice = 56000;
+        String orderMenuName = "Ayam Cabe-Cabean";
+        int orderMenuQuantity = 2;
+        int orderMenuPrice = 28000;
+        String orderMenuAddress = "Labtek V ITB";
 
         // creating orderInfo object (CAN BE MORE THAT ONE)
-        OrderInfo OI = new OrderInfo(historyMenuName, historyAddress, historyTotalPrice);
+        OrderInfo OI = new OrderInfo(orderMenuName, orderMenuQuantity, orderMenuPrice, orderMenuAddress);
 
         // clearing list of tenantInfo
         orderInfos = new ArrayList<>();
