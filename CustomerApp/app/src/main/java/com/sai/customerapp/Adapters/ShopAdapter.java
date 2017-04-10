@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sai.customerapp.FragmentClasses.TenantInfo;
 import com.sai.customerapp.Fragments.FragmentMenu;
@@ -53,10 +54,18 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
         return tenantInfos.size();
     }
 
+    /*
     public void switchContent(Fragment fragment) {
-        if (context == null)
+
+        Toast.makeText(context, "switchContent Welcome", Toast.LENGTH_LONG).show();
+
+        if (context == null) {
+            Toast.makeText(context, "switchContent Null", Toast.LENGTH_LONG).show();
             return;
+        }
+
         if (context instanceof MainActivity) {
+            Toast.makeText(context, "switchContent Not Null", Toast.LENGTH_LONG).show();
             MainActivity mainActivity = (MainActivity) context;
             Fragment frag = fragment;
             mainActivity.switchContent(frag);
@@ -65,6 +74,8 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
     }
 
     private void fragmentJump(TenantInfo tenantInfoSelected) {
+        Toast.makeText(context, "fragmentJump", Toast.LENGTH_LONG).show();
+
         FragmentMenu fragmentMenu = new FragmentMenu();
 
         Bundle data = new Bundle();
@@ -72,11 +83,11 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
 
         fragmentMenu.setArguments(data);
 
-        switchContent(fragmentMenu);
+        //switchContent(fragmentMenu);
     }
+    */
 
-
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public ImageView imageViewTenantProfPic;
         public TextView textViewTenantName;
@@ -90,16 +101,25 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
             textViewTenantName = (TextView) itemView.findViewById(R.id.textViewTenantName);
             textViewTenantDescription = (TextView) itemView.findViewById(R.id.textViewTenantDescription);
 
-            imageViewTenantProfPic.setOnClickListener(new View.OnClickListener() {
+            imageViewTenantProfPic.setOnClickListener(this);
 
-                @Override
-                public void onClick(View v) {
+        }
 
-                    fragmentJump(tenantInfos.get(getAdapterPosition()));
+        @Override
+        public void onClick(View v) {
 
-                }
+            //fragmentJump(tenantInfos.get(getAdapterPosition()));
 
-            });
+            FragmentMenu fragmentMenu = new FragmentMenu();
+
+            Bundle data = new Bundle();
+            data.putInt("tenantID", tenantInfos.get(getAdapterPosition()).tenantID);
+
+            fragmentMenu.setArguments(data);
+
+            ((MainActivity) v.getContext()).getFragmentManager().beginTransaction()
+                    .replace(R.id.Frame_Container, fragmentMenu)
+                    .commit();
 
         }
 
