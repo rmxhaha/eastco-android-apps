@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageViewOrderProfPic"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginBottom="15dp"
+        android:src="@drawable/ic_accepted" />
+
+    <TextView
+        android:id="@+id/textViewOrderName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Menu's Name"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginBottom="15dp"
+        android:layout_toRightOf="@id/imageViewOrderProfPic" />
+
+    <TextView
+        android:id="@+id/textViewOrderDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Order's quantity"
+        android:textSize="12sp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginBottom="12dp"
+        android:layout_below="@id/textViewOrderName"
+        android:layout_toRightOf="@id/imageViewOrderProfPic"/>
+
+    <TextView
+        android:id="@+id/textViewOrderPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Menu's Price"
+        android:textSize="18sp"
+        android:layout_alignParentRight="true"
+        android:gravity="right"
+        android:layout_marginBottom="12dp"
+        android:layout_below="@id/textViewOrderName"
+        android:layout_toRightOf="@id/textViewOrderDescription"/>
+
+    <TextView
+        android:id="@+id/textViewOrderAddressLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Deliver to"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="12dp"
+        android:layout_below="@id/imageViewOrderProfPic"/>
+
+    <Spinner
+        android:id="@+id/spinnerOrderAddressValues"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/country_arrays"
+        android:prompt="@string/country_prompt"
+        android:layout_below="@id/textViewOrderAddressLabel" />
+
+    <TextView
+        android:id="@+id/textViewTotalPriceLabel"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="TOTAL PRICE"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:layout_below="@id/spinnerOrderAddressValues" />
+
+    <TextView
+        android:id="@+id/textViewTotalPriceValue"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="Rp 56000"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:layout_below="@id/textViewTotalPriceLabel" />
+
+    <Button
+        android:id="@+id/buttonOrder"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="ORDER"
+        android:layout_below="@id/textViewTotalPriceValue" />
+
+</RelativeLayout>

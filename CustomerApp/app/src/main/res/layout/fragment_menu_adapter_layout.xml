@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:text="Menu's Name"
         android:textStyle="bold"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:layout_marginLeft="30dp"
         android:layout_marginBottom="15dp"
         android:layout_toRightOf="@id/imageViewMenuProfPic" />
@@ -27,32 +27,74 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Menu's Description"
-        android:textSize="12dp"
+        android:textSize="12sp"
         android:layout_marginLeft="30dp"
         android:layout_marginBottom="12dp"
         android:layout_below="@id/textViewMenuName"
         android:layout_toRightOf="@id/imageViewMenuProfPic"/>
 
-        <Button
-            android:id="@+id/buttonMenuBuy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="BUY"
-            android:layout_marginLeft="30dp"
-            android:layout_below="@id/textViewMenuDescription"
-            android:layout_toRightOf="@id/imageViewMenuProfPic" />
+    <Button
+        android:id="@+id/buttonDecreaseAmount"
+        android:layout_height="35dp"
+        android:layout_width="35dp"
+        android:text="-"
+        android:layout_marginLeft="30dp"
+        android:layout_below="@id/textViewMenuDescription"
+        android:layout_toRightOf="@id/imageViewMenuProfPic"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/textViewAmount"
+        android:layout_height="35dp"
+        android:layout_width="wrap_content"
+        android:text="0"
+        android:gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_toRightOf="@id/buttonDecreaseAmount"
+        android:layout_below="@id/textViewMenuDescription"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/buttonAddAmount"
+        android:layout_height="35dp"
+        android:layout_width="35dp"
+        android:text="+"
+        android:layout_below="@id/textViewMenuDescription"
+        android:layout_toRightOf="@id/textViewAmount"
+        android:visibility="invisible" />
+
+    <EditText
+        android:id="@+id/editTextMenuDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Add a description"
+        android:layout_below="@id/buttonDecreaseAmount"
+        android:layout_toRightOf="@id/imageViewMenuProfPic"
+        android:layout_marginLeft="30dp"
+        android:textSize="12sp"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/buttonMenuBuy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BUY"
+        android:layout_marginLeft="30dp"
+        android:layout_below="@id/textViewMenuDescription"
+        android:layout_toRightOf="@id/imageViewMenuProfPic" />
 
 
-        <TextView
-            android:id="@+id/textViewMenuPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Menu's Price"
-            android:textSize="18dp"
-            android:layout_alignParentRight="true"
-            android:gravity="right"
-            android:layout_marginBottom="12dp"
-            android:layout_below="@id/textViewMenuDescription"
-            android:layout_toRightOf="@id/buttonMenuBuy"/>
+    <TextView
+        android:id="@+id/textViewMenuPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Menu's Price"
+        android:textSize="18sp"
+        android:layout_alignParentRight="true"
+        android:gravity="right"
+        android:layout_marginBottom="12dp"
+        android:layout_below="@id/textViewMenuDescription"
+        android:layout_toRightOf="@id/buttonAddAmount"/>
 
 </RelativeLayout>
