@@ -18,6 +18,8 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -127,7 +129,7 @@ public class FragmentOrders extends Fragment {
                     filterBy = "waiting_for_response";
                 }
                 else if( rawFilterBy.equals("Accepted") ){
-                    filterBy = "accepted";
+                    filterBy = "processing";
                 }
                 else if( rawFilterBy.equals("Delivering")){
                     filterBy = "delivering";
@@ -170,6 +172,44 @@ public class FragmentOrders extends Fragment {
         orderListView.setAdapter(adapter);
     }
 
+    public void acceptDenyOrder(int order_id, String verdict){
+        String url;
+        url = "http://90.90.5.110:45222/api/v1/tenant/order/ongoing/"+order_id+"/"+verdict+"?api_token=LUJmEqiYl2QjAp3UgZOFNimdObrZwri8yB9ApeRrxzsQRBTVEtEifGHeYfEy";
+        RequestQueue queue = Volley.newRequestQueue(getActivity().getBaseContext());
+
+        Log.d("Response", url);
+        //GET Method
+        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        updateOngoingOrders();
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO Auto-generated method stub
+                        Log.d("ERROR","error => "+error);
+                        Toast.makeText(getActivity().getBaseContext(), "get description failed", Toast.LENGTH_LONG).show();
+                    }
+                }
+
+        ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("Accept", "application/json");
+                params.put("Content-Type", "application/json");
+                return params;
+            }
+        };
+        queue.add(postRequest);
+    }
+
     public class OngoingOrderAdapter extends BaseAdapter {
         private Context context;
         private List<Order> orders;
@@ -202,25 +242,95 @@ public class FragmentOrders extends Fragment {
                 view = LayoutInflater.from(context).inflate(R.layout.listview_tenant_order, viewGroup, false);
             }
 
-            Order cOrder = (Order) getItem(i);
+            final Order cOrder = (Order) getItem(i);
 
             TextView orderId = (TextView) view.findViewById(R.id.order_id);
-            TextView orderDescription = (TextView) view.findViewById(R.id.order_description);
+            TextView addressDescription = (TextView) view.findViewById(R.id.address_description);
+            TextView status = (TextView) view.findViewById(R.id.order_status);
+            TextView username = (TextView) view.findViewById(R.id.username);
 
-            int order_count = 0;
-            for(OrderDetail dtl:cOrder.getDetails()){
-                order_count += dtl.getAmount();
+            username.setText(cOrder.getOrderer().getUsername());
+            addressDescription.setText( "No Telp : " + cOrder.getOrderer().getPhonenumber() + "\n" + cOrder.getAddress().getName() + ",\nNote : " + cOrder.getAddress_description());
+
+            TableLayout table = (TableLayout) view.findViewById(R.id.table_order);
+
+            for(OrderDetail detail:cOrder.getDetails()){
+                TableRow tr = new TableRow(getActivity());
+                TextView foodName = new TextView(getActivity());
+                TextView foodQty = new TextView(getActivity());
+                TextView foodPrice = new TextView(getActivity());
+
+                foodName.setText(detail.getMenu().getName());
+                foodQty.setText(Integer.toString(detail.getAmount()));
+                foodPrice.setText(Integer.toString(detail.getMenu_price()));
+
+                tr.addView(foodName);
+                tr.addView(foodQty);
+                tr.addView(foodPrice);
+
+                table.addView(tr);
+            }
+
+            TableRow tr = new TableRow(getActivity());
+            TextView foodName = new TextView(getActivity());
+            TextView foodQty = new TextView(getActivity());
+            TextView foodPrice = new TextView(getActivity());
+
+            foodName.setText("");
+            foodQty.setText("Total");
+            foodPrice.setText(Integer.toString(cOrder.getTotal_price()));
+
+            tr.addView(foodName);
+            tr.addView(foodQty);
+            tr.addView(foodPrice);
+
+            table.addView(tr);
+
+            Button acceptBtn = (Button) view.findViewById(R.id.accept_btn);
+            Button denyBtn = (Button) view.findViewById(R.id.deny_btn);
+            Button cancelBtn = (Button) view.findViewById(R.id.cancel_btn);
+
+            acceptBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    acceptDenyOrder(cOrder.getId(), "accept");
+                }
+            });
+
+            denyBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    acceptDenyOrder(cOrder.getId(), "deny");
+                }
+            });
+
+            cancelBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    acceptDenyOrder(cOrder.getId(), "cancel");
+                }
+            });
+
+            if( filterBy.equals("waiting_for_response")){
+                cancelBtn.setVisibility(View.GONE);
+            }
+            else if( filterBy.equals("processing") ){
+                acceptBtn.setVisibility(View.GONE);
+                denyBtn.setVisibility(View.GONE);
+            }
+            else if( filterBy.equals("others") ){
+                cancelBtn.setVisibility(View.GONE);
+                acceptBtn.setVisibility(View.GONE);
+                denyBtn.setVisibility(View.GONE);
             }
 
 
-            orderId.setText("Order No. " + cOrder.getId());
-            orderDescription.setText(
-                    "Ordered By         : " + cOrder.getOrderer().getUsername() + "\n" +
-                    "Contact            : " + cOrder.getOrderer().getPhonenumber() + "\n" +
-                    "Total Price        : " + cOrder.getTotal_price() + "\n" +
-                    "Total Item Ordered : " + order_count + "\n" +
-                    "Click to see more details"
-            );
+
+
+
+
+            orderId.setText("#" + cOrder.getId());
+            status.setText(cOrder.getStatus());
 
             return  view;
         }
