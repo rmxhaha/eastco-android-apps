@@ -1,5 +1,6 @@
 package mj.eastco;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -53,13 +54,14 @@ public class FragmentTenant extends Fragment {
     String token;
 
     private OnFragmentInteractionListener mListener;
+    private Activity mActivity;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         //Get token
-        SharedPreferences sharedPref = this.getActivity().getSharedPreferences("default", Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("default", Context.MODE_PRIVATE);
         token = sharedPref.getString("UID", "null");
         Log.d("token ", token);
 
@@ -180,6 +182,10 @@ public class FragmentTenant extends Fragment {
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
+        }
+
+        if (context instanceof Activity) {
+            mActivity = (Activity) context;
         }
     }
 
