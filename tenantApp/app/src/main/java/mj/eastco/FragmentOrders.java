@@ -1,5 +1,6 @@
 package mj.eastco;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -107,7 +108,9 @@ public class FragmentOrders extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        startUpOrdersFragment();
+    }
+    private void startUpOrdersFragment(){
         //Get token
         SharedPreferences sharedPref = getActivity().getSharedPreferences("default", Context.MODE_PRIVATE);
         token = sharedPref.getString("UID", "null");
@@ -151,7 +154,6 @@ public class FragmentOrders extends Fragment {
 
         updateOngoingOrders();
     }
-
     public void renderOrderList(){
         orderListView = (ListView) getActivity().findViewById(R.id.ongoingOrderListView);
         List<Order> orders = ongoingOrder.getTransactions();
@@ -289,6 +291,7 @@ public class FragmentOrders extends Fragment {
             Button acceptBtn = (Button) view.findViewById(R.id.accept_btn);
             Button denyBtn = (Button) view.findViewById(R.id.deny_btn);
             Button cancelBtn = (Button) view.findViewById(R.id.cancel_btn);
+            Button readyBtn = (Button) view.findViewById(R.id.ready_to_deliver_btn);
 
             acceptBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -311,17 +314,25 @@ public class FragmentOrders extends Fragment {
                 }
             });
 
+            readyBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    acceptDenyOrder(cOrder.getId(), "ready_to_deliver");
+                }
+            });
             if( filterBy.equals("waiting_for_response")){
                 cancelBtn.setVisibility(View.GONE);
+                readyBtn.setVisibility(View.GONE);
             }
             else if( filterBy.equals("processing") ){
                 acceptBtn.setVisibility(View.GONE);
                 denyBtn.setVisibility(View.GONE);
             }
-            else if( filterBy.equals("others") ){
+            else {
                 cancelBtn.setVisibility(View.GONE);
                 acceptBtn.setVisibility(View.GONE);
                 denyBtn.setVisibility(View.GONE);
+                readyBtn.setVisibility(View.GONE);
             }
 
 
@@ -338,7 +349,6 @@ public class FragmentOrders extends Fragment {
 
     @Override
     public void onAttach(Context context) {
-        super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
@@ -346,6 +356,8 @@ public class FragmentOrders extends Fragment {
                     + " must implement OnFragmentInteractionListener");
         }
     }
+
+
 
     @Override
     public void onDetach() {

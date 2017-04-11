@@ -3,6 +3,7 @@
     <string-array name="order_type">
         <item>Waiting for Response</item>
         <item>Accepted</item>
+        <item>Delivering</item>
         <item>History</item>
     </string-array>
 </resources>

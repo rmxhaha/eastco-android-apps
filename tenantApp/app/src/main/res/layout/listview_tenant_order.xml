@@ -97,6 +97,15 @@
                 android:layout_weight="1"
                 android:layout_height="30dp"
                 android:background="@color/colorPrimary"
+                android:text="Ready To Deliver"
+                android:id="@+id/ready_to_deliver_btn"
+                />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="30dp"
+                android:background="#999"
                 android:text="Cancel"
                 android:id="@+id/cancel_btn"
                 />
