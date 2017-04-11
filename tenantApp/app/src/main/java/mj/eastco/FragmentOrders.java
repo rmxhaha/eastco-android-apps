@@ -55,9 +55,7 @@ import com.google.gson.Gson;
 public class FragmentOrders extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
+    private static final String baseURL = "contraffee.ml";
     // TODO: Rename and change types of parameters
     private String token;
     private OnFragmentInteractionListener mListener;
@@ -67,24 +65,6 @@ public class FragmentOrders extends Fragment {
 
     public FragmentOrders() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentOrders.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FragmentOrders newInstance(String param1, String param2) {
-        FragmentOrders fragment = new FragmentOrders();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -176,7 +156,7 @@ public class FragmentOrders extends Fragment {
 
     public void acceptDenyOrder(int order_id, String verdict){
         String url;
-        url = "http://90.90.5.110:45222/api/v1/tenant/order/ongoing/"+order_id+"/"+verdict+"?api_token=LUJmEqiYl2QjAp3UgZOFNimdObrZwri8yB9ApeRrxzsQRBTVEtEifGHeYfEy";
+        url = "http://"+baseURL+"/api/v1/tenant/order/ongoing/"+order_id+"/"+verdict+"?api_token="+token;
         RequestQueue queue = Volley.newRequestQueue(getActivity().getBaseContext());
 
         Log.d("Response", url);
@@ -422,10 +402,10 @@ public class FragmentOrders extends Fragment {
 
         String url;
         if( filterBy == "others" ){
-            url = "http://90.90.5.110:45222/api/v1/tenant/order/history?api_token=LUJmEqiYl2QjAp3UgZOFNimdObrZwri8yB9ApeRrxzsQRBTVEtEifGHeYfEy";
+            url = "http://"+baseURL+"/api/v1/tenant/order/history?api_token="+token;
         }
         else {
-            url = "http://90.90.5.110:45222/api/v1/tenant/order/ongoing?api_token=LUJmEqiYl2QjAp3UgZOFNimdObrZwri8yB9ApeRrxzsQRBTVEtEifGHeYfEy";
+            url = "http://"+baseURL+"/api/v1/tenant/order/ongoing?api_token="+token;
         }
         RequestQueue queue = Volley.newRequestQueue(getActivity().getBaseContext());
 
