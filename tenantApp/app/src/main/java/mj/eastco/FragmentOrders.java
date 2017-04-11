@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -30,13 +31,15 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import com.google.gson.Gson;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,6 +60,7 @@ public class FragmentOrders extends Fragment {
     private OnFragmentInteractionListener mListener;
     private OngoingOrder ongoingOrder;
     private ListView orderListView;
+    private String filterBy = "waiting_for_response";
 
     public FragmentOrders() {
         // Required empty public constructor
@@ -107,19 +111,63 @@ public class FragmentOrders extends Fragment {
         token = sharedPref.getString("UID", "null");
         Log.d("token ", token);
 
-        ongoingOrder = getOngoingOrders();
-        orderListView = (ListView) getActivity().findViewById(R.id.ongoingOrderListView);
-        OngoingOrderAdapter adapter = new OngoingOrderAdapter(getActivity(),ongoingOrder.getTransactions());
-
-        orderListView.setAdapter(adapter);
-
         Spinner orderTypeSpinner = (Spinner) getActivity().findViewById(R.id.order_spinner);
 
         ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.order_type, android.R.layout.simple_spinner_item);
         spinnerAdapter.setDropDownViewResource(R.layout.spinner_layout);
-        orderTypeSpinner.setAdapter(spinnerAdapter);
 
+        orderTypeSpinner.setAdapter(spinnerAdapter);
+        orderTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                // Your code here
+                String rawFilterBy = Arrays.asList((getResources().getStringArray(R.array.order_type))).get(position);
+
+                if( rawFilterBy.equals("Waiting for Response") ){
+                    filterBy = "waiting_for_response";
+                }
+                else if( rawFilterBy.equals("Accepted") ){
+                    filterBy = "accepted";
+                }
+                else if( rawFilterBy.equals("Delivering")){
+                    filterBy = "delivering";
+                }
+                else {
+                    filterBy = "others";
+                }
+                Log.d("FFF", rawFilterBy);
+                Log.d("FFF", filterBy);
+
+                updateOngoingOrders();
+
+            }
+
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                return;
+            }
+        }); ;
+
+        updateOngoingOrders();
+    }
+
+    public void renderOrderList(){
+        orderListView = (ListView) getActivity().findViewById(R.id.ongoingOrderListView);
+        List<Order> orders = ongoingOrder.getTransactions();
+
+        List<Order> filteredOrders = new ArrayList<>();
+
+        if( filterBy != "others")
+            for(Order o:orders){
+                if( o.getStatus().equals(filterBy) )
+                    filteredOrders.add(o);
+            }
+        else
+            filteredOrders = orders;
+
+        OngoingOrderAdapter adapter = new OngoingOrderAdapter(getActivity(),filteredOrders);
+        ((TextView) getActivity().findViewById(R.id.loading_text)).setText("");
+
+        orderListView.setAdapter(adapter);
     }
 
     public class OngoingOrderAdapter extends BaseAdapter {
@@ -210,8 +258,10 @@ public class FragmentOrders extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    OngoingOrder getOngoingOrders(){
-        
+    void updateOngoingOrders(){
+        ((TextView) getActivity().findViewById(R.id.loading_text)).setText("loading...");
+
+        /*
         OngoingOrder ongoingOrder = new OngoingOrder();
 
         List<Order> transactions = new ArrayList<>();
@@ -246,12 +296,18 @@ public class FragmentOrders extends Fragment {
 
         transactions.add(order);
         ongoingOrder.setTransactions(transactions);
+        */
 
-        return ongoingOrder;
-        /*
+        String url;
+        if( filterBy == "others" ){
+            url = "http://90.90.5.110:45222/api/v1/tenant/order/history?api_token=LUJmEqiYl2QjAp3UgZOFNimdObrZwri8yB9ApeRrxzsQRBTVEtEifGHeYfEy";
+        }
+        else {
+            url = "http://90.90.5.110:45222/api/v1/tenant/order/ongoing?api_token=LUJmEqiYl2QjAp3UgZOFNimdObrZwri8yB9ApeRrxzsQRBTVEtEifGHeYfEy";
+        }
         RequestQueue queue = Volley.newRequestQueue(getActivity().getBaseContext());
-        String url = "http://contraffee.ml/api/v1/tenant/profile?api_token=" + token;
 
+        Log.d("Response", url);
         //GET Method
         StringRequest postRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>()
@@ -259,15 +315,10 @@ public class FragmentOrders extends Fragment {
                     @Override
                     public void onResponse(String response) {
                         // response
-                        JSONObject responseObject = null;
 
-                        try {
-                            responseObject = new JSONObject(response);
-                            Log.d("Response", response);
-                            //Edit Text
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        ongoingOrder = new Gson().fromJson( response, OngoingOrder.class );
+                        renderOrderList();
+                        Log.d("Response", response);
                     }
                 },
                 new Response.ErrorListener()
@@ -290,6 +341,5 @@ public class FragmentOrders extends Fragment {
             }
         };
         queue.add(postRequest);
-        */
     }
 }
